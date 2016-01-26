@@ -1,3 +1,6 @@
+package wizpath.wizpath;
+
+
 import javax.swing.SwingUtilities;
 
 public class Main {
