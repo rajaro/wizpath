@@ -4,4 +4,5 @@
 ###**Kaikkien käyttäjien toiminnot**:
 Kaikilla käyttäjillä samat toiminnot, eli pelin pelaaminen. Peli ei sisällä tallennusmahdollisuutta. Pelaaja liikkuu vasemmalle painaessaan vasenta nuolinäppäintä, ja oikealle painaessaan oikeaa nuolinäppäintä. Välilyönnistä pelaaja ampuu ammuksen, jolla on tarkoitus osua viholliseen.
 
-### ![Luokkakaavio](wizpath/dokumentointi/LuokkaKaavio.png)
+###Luokkakaavio
+![Luokkakaavio](LuokkaKaavio.png)
