@@ -1,16 +1,14 @@
-package wizpath.wizpath;
+package fi.rajaro.units;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author jaro
  */
-
 import java.awt.*;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -25,32 +23,62 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Player extends JPanel {
+public class Player extends Unit {
 
     private int x;
     private int y;
+    private boolean dead;
+    private int act;
+    private Bolt bolt;
+
+    public Player() {
+        super(20, 440);
+    }
 
     public Player(int x, int y) {
+        super(x, y);
         this.x = x;
         this.y = y;
     }
+
+    public boolean dead() {
+        return this.dead;
+    }
+
+    public void kill() {
+        this.dead = true;
+    }
     
-    public int getX() {
-        return x;
+    public void shoot(Bolt bolt) {
+        bolt.shoot(getX(), getY());
+        
     }
 
-    public int getY() {
-        return y;
+    public void setAct(int act) {
+        this.act = act;
     }
 
+    public void act() {
+        if (this.act == 2) {
+            move(2, 0);
+        } else if (this.act == -2) {
+            move(-2, 0);
+        }
+
+    }
+    @Override
     public void move(int xchange, int ychange) {
-        if (this.x + xchange > 0 && this.x + xchange < 470) {
+        if (this.x + xchange <= 0) {
+            this.x = 0;
+        } else if (this.x + xchange >= 480) {
+            this.x = 480;  
+        } else {
         this.x += xchange;
         }
-        this.y += ychange;
     }
 
-    public void piirra(Graphics graphics) {
+    public void draw(Graphics graphics) {
         graphics.fillOval(x, y, 20, 20);
     }
+
 }

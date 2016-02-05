@@ -30,6 +30,11 @@ public class PlayerTest {
         assertEquals(originalX + 2, player.getX());
 
     }
+    
+    @Test public void MoveRight2Test() {
+        player.move(50, 0);
+        assertEquals(originalX + 50, player.getX());
+    }
 
 }
 
