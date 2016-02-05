@@ -43,12 +43,12 @@ public class Unit {
         } else {
         this.x += xchange;
         }
-        if (this.y + xchange <= 0) {
+        if (this.y + ychange <= 0) {
             this.y = 0;
-        } else if (this.y + xchange >= 480) {
+        } else if (this.y + ychange >= 480) {
             this.y = 480;  
         } else {
-        this.y += xchange;
+        this.y += ychange;
         }
     }
     

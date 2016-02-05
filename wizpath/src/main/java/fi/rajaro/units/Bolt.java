@@ -14,7 +14,7 @@ import java.awt.Graphics;
 public class Bolt extends Unit {
     private int x;
     private int y;
-    private boolean shot;
+    
     public Bolt() {
         super(0, 0);
     }
@@ -22,24 +22,24 @@ public class Bolt extends Unit {
         super(x, y);
         this.x = x;
         this.y = y;
-        shot = false;
     }
+    
     
     public void shoot(int x, int y) {
-        this.x = x;
-        this.y = y;
-        shot = true;
+        setX(x);
+        setY(y);
     }
     
-    @Override
+ /*   @Override
     public void move(int xchange, int ychange) {
         this.y = y + ychange;
-    }
+    }*/
     
     public void act() {
-        if (shot = true) {
+
             move(0, -4);
-        }
+      
+        
     }
     
     public void draw(Graphics graphics) {
