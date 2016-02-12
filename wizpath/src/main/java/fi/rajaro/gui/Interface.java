@@ -9,6 +9,8 @@ package fi.rajaro.gui;
  *
  * @author jaro
  */
+import fi.rajaro.units.MonsterSpawn;
+import fi.rajaro.units.AnimationCycle;
 import fi.rajaro.units.KeyboardListener;
 import fi.rajaro.units.Bolt;
 import fi.rajaro.units.Map;
@@ -25,6 +27,7 @@ import java.awt.Component;
 import javax.swing.InputMap;
 import javax.swing.ActionMap;
 import java.util.TimerTask;
+import java.util.Timer;
 
 public class Interface extends JFrame implements Runnable {
 
@@ -32,7 +35,9 @@ public class Interface extends JFrame implements Runnable {
     private Map map;
     private Player player;
     private Monster monster;
-    private Boolean gameOver;
+    private Boolean inGame;
+    private AnimationCycle anim;
+    private MonsterSpawn mons;
     public Interface() {
     }
 
@@ -45,6 +50,14 @@ public class Interface extends JFrame implements Runnable {
         createComponents(frame.getContentPane());
         frame.pack();
         frame.setVisible(true);
+        this.inGame = true;
+        Timer animator = new Timer();
+        animator.scheduleAtFixedRate(anim, 1000, 25);
+        Timer monsterSpawner = new Timer();
+        monsterSpawner.scheduleAtFixedRate(mons, 4000, 4000);
+        if (map.getLives() == 0) {
+            System.out.println("GAME OVER!");
+        }
 
     }
 
@@ -53,6 +66,10 @@ public class Interface extends JFrame implements Runnable {
         monster = new Monster(50, 50);
         map = new Map(player, 30);
         container.add(map);
+        anim = new AnimationCycle(map);
+        mons = new MonsterSpawn(map);
+        map.setLives(3);
+        Bolt bolt = new Bolt(20, 440);
         
         frame.addKeyListener(new KeyboardListener(player, map));
     }

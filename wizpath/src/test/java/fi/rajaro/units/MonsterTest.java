@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class MonsterTest {
     
-    private Unit unit = new Unit(50, 50);
+    private Unit unit = new Unit(60, 60);
     private Monster monster = new Monster(45, 45);
     
     @Test
@@ -27,7 +27,7 @@ public class MonsterTest {
     
     @Test
     public void moveAndKill() {
-        unit.move(-5, -5);
+        unit.move(-15, -15);
         monster.kill(unit);
         assertTrue(monster.isDead());
     }
@@ -38,8 +38,6 @@ public class MonsterTest {
         assertEquals(60, monster.getX());
         assertEquals(60, monster.getY());
     }
-    
-    
     
     
 }

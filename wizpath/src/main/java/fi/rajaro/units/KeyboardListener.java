@@ -21,26 +21,22 @@ public class KeyboardListener implements KeyListener {
         
     }
     
-    
+    /**
+     * Liikutetaan pelaajaa liikkumaan näppäinten mukaan
+     * @see fi.rajaro.units.Player#act() 
+     * @param e painettu näppäin 
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             player.setAct(-2);
-            //player.move(-2, 0);
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             player.setAct(2);
-           // player.move(2, 0);
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             component.animationCycle();
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            Bolt bolt = new Bolt();
-            bolt.setX(player.getX());
-            bolt.setY(player.getY());
-            player.shoot(bolt);
-        }
-        component.animationCycle();
-        component.repaint();
-        
+            player.shoot(player.getBolt());
+        }        
         
     }
     

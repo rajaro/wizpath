@@ -22,6 +22,10 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+/**
+ * Pelaajan määrittelevä luokka
+ * @author jaro
+ */
 
 public class Player extends Unit {
 
@@ -57,6 +61,14 @@ public class Player extends Unit {
         return this.y;
     }
     
+    public void setBolt(Bolt bolt) {
+        this.bolt = bolt;
+    }
+    
+    public Bolt getBolt() {
+        return this.bolt;
+    }
+    
     public boolean dead() {
         return this.dead;
     }
@@ -69,11 +81,16 @@ public class Player extends Unit {
         bolt.shoot(getX(), getY());
         
     }
-
+/**
+ * Asetetaan muuttuja, joka kertoo liikkumisen suunnan. -2 = vasen, 2 = oikea, 0 = ei mihinkään
+ * @param act liikkumisen suunta
+ */
     public void setAct(int act) {
         this.act = act;
     }
-
+/**
+ * Liikutetaan pelaajaa act -muuttujan arvon perusteella
+ */
     public void act() {
         if (this.act == 2) {
             move(2, 0);

@@ -34,7 +34,12 @@ public class Unit {
     public int getY() {
         return this.y;
     }
-    
+    /**
+     * muuttaa x- ja y-koordinaatteja parametrien verran. Koordinaattien rajat 0 ja 480.
+     * 
+     * @param xchange x-koordinaatin muutos
+     * @param ychange y-koordinaatin muutos
+     */
     public void move(int xchange, int ychange) {
         if (this.x + xchange <= 0) {
             this.x = 0;
