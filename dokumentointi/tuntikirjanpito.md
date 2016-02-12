@@ -15,3 +15,8 @@
 
 5.2.2016 klo 17.00 - 19.00 Uusien testien tekemistä, Luokkakaavion päivitys, uudet raportit
 
+##Deadline 4
+
+9.2.2016 klo 12.00 - 14.00 Monstereiden animaation tekemistä (TimerTask)
+11.2.2016 klo 16.00 - 20.00 Animaation tekemistä, testejä, JavaDoc
+
