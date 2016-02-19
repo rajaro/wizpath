@@ -17,8 +17,10 @@ import java.util.TimerTask;
 import fi.rajaro.gui.*;
 import java.util.ArrayList;
 import java.util.Random;
+
 /**
- * Pelikentän määrittävä luokkka
+ * Pelikentän määrittävä luokkka.
+ *
  * @author jaro
  */
 public class Map extends JPanel {
@@ -27,21 +29,30 @@ public class Map extends JPanel {
     private ArrayList<Monster> monsters;
     private Bolt bolt;
     private Timer timer;
+    private int score;
     private int playerLives;
-
+/**
+ * Luodaan kenttä, ja alustetaan sinne pelaaja, ammus, monsterit sekä pelaajan elämät.
+ * @param player pelaaja
+ * @param monsters monsterien lukumäärä
+ */
     public Map(Player player, int monsters) {
-       this.monsters = new ArrayList<Monster>();
+        this.monsters = new ArrayList<Monster>();
         bolt = new Bolt(20, 440);
         super.setBackground(Color.WHITE);
         this.player = player;
         player.setBolt(bolt);
         spawnMonsters(monsters);
+        playerLives = 5;
     }
+
     /**
-     * Monsterit luova metodi, joka generoi satunnaiset luvut monsterin alkukoordinaateiksi
-     * Monstereille annetaan suuntamuuttuja kasvavassa järjestyksessä nollasta monsterien lukumäärään.
+     * Monsterit luova metodi, joka generoi satunnaiset luvut monsterin
+     * alkukoordinaateiksi Monstereille annetaan suuntamuuttuja kasvavassa
+     * järjestyksessä nollasta monsterien lukumäärään.
+     *
      * @param monsters lukumäärä, jonka verran monstereita luodaan kerralla
-     * 
+     *
      */
     public void spawnMonsters(int monsters) {
         for (int i = 0; i < monsters; i++) {
@@ -54,9 +65,11 @@ public class Map extends JPanel {
 
         }
     }
-/**
- * Liikuttaa kaikkia kartalla olevia, tarkastaa osuvatko jotkut toisiinsa ja kutsuu lopuksi repaint() metodia
- */
+
+    /**
+     * Liikuttaa kaikkia kartalla olevia, tarkastaa osuvatko jotkut toisiinsa ja
+     * kutsuu lopuksi repaint() metodia.
+     */
     public void animationCycle() {
         player.act();
         for (int i = 0; i < this.monsters.size(); i++) {
@@ -66,26 +79,43 @@ public class Map extends JPanel {
         checkCollision();
         repaint();
     }
-/**
- * Tarkastaa, osuuko jokin monsteri joko pelaajaan tai ammukseen
- */
+
+    /**
+     * Tarkastaa, osuuko jokin monsteri joko pelaajaan tai ammukseen.
+     */
     public void checkCollision() {
         for (int i = 0; i < this.monsters.size(); i++) {
             if (this.monsters.get(i).kill(player)) {
                 playerLives--;
+                if (playerLives == 0) {
+                    System.out.println("GAME OVER");
+                    System.out.println(getScore());
+                }
             }
-            this.monsters.get(i).kill(bolt);
+            if (!this.monsters.get(i).isDead()) {
+                if (this.monsters.get(i).kill(bolt)) {
+                    score++;
+                }
+            }
         }
 
     }
-    
+
     public void setLives(int lives) {
         this.playerLives = lives;
-        
+
     }
-    
+
     public int getLives() {
         return this.playerLives;
+    }
+
+    public int getScore() {
+        return this.score;
+    }
+
+    public ArrayList<Monster> getMonsters() {
+        return this.monsters;
     }
 
     public Map() {

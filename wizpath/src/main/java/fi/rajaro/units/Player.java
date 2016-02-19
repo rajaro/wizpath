@@ -23,7 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 /**
- * Pelaajan määrittelevä luokka
+ * Pelaajan määrittelevä luokka.
  * @author jaro
  */
 
@@ -72,30 +72,39 @@ public class Player extends Unit {
     public boolean dead() {
         return this.dead;
     }
-
+    /**
+     * Asettaa pelaajan kuolleeksi.
+     */
     public void kill() {
         this.dead = true;
     }
-    
+    /**
+     * Asetetaan ammuksen koordinaateiksi pelaajan tämänhetkiset koordinaatit.
+     * @param bolt pelaaja ammus
+     */
     public void shoot(Bolt bolt) {
         bolt.shoot(getX(), getY());
         
     }
 /**
- * Asetetaan muuttuja, joka kertoo liikkumisen suunnan. -2 = vasen, 2 = oikea, 0 = ei mihinkään
+ * Asetetaan muuttuja, joka kertoo liikkumisen suunnan. -2 = vasen, 2 = oikea, 0 = ei mihinkään.
  * @param act liikkumisen suunta
  */
     public void setAct(int act) {
         this.act = act;
     }
 /**
- * Liikutetaan pelaajaa act -muuttujan arvon perusteella
+ * Liikutetaan pelaajaa act -muuttujan arvon perusteella.
  */
     public void act() {
         if (this.act == 2) {
             move(2, 0);
         } else if (this.act == -2) {
             move(-2, 0);
+        } else if (this.act == 1) {
+            move(0, -2);
+        } else if (this.act == -1) {
+            move(0, 2);
         }
 
     }
@@ -107,6 +116,13 @@ public class Player extends Unit {
             this.x = 480;  
         } else {
         this.x += xchange;
+        }
+        if (this.y + ychange <= 0) {
+            this.y = 0;
+        } else if (this.y + ychange >= 460) {
+            this.y = 460;  
+        } else {
+        this.y += ychange;
         }
     }
 

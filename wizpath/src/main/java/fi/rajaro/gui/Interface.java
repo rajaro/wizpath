@@ -9,8 +9,6 @@ package fi.rajaro.gui;
  *
  * @author jaro
  */
-import fi.rajaro.units.MonsterSpawn;
-import fi.rajaro.units.AnimationCycle;
 import fi.rajaro.units.KeyboardListener;
 import fi.rajaro.units.Bolt;
 import fi.rajaro.units.Map;
@@ -28,6 +26,7 @@ import javax.swing.InputMap;
 import javax.swing.ActionMap;
 import java.util.TimerTask;
 import java.util.Timer;
+import javax.swing.JLabel;
 
 public class Interface extends JFrame implements Runnable {
 
@@ -38,6 +37,8 @@ public class Interface extends JFrame implements Runnable {
     private Boolean inGame;
     private AnimationCycle anim;
     private MonsterSpawn mons;
+    private JLabel score;
+
     public Interface() {
     }
 
@@ -46,19 +47,17 @@ public class Interface extends JFrame implements Runnable {
         frame = new JFrame("Map");
         frame.setPreferredSize(new Dimension(500, 500));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        
+
         createComponents(frame.getContentPane());
         frame.pack();
         frame.setVisible(true);
-        this.inGame = true;
         Timer animator = new Timer();
-        animator.scheduleAtFixedRate(anim, 1000, 25);
         Timer monsterSpawner = new Timer();
-        monsterSpawner.scheduleAtFixedRate(mons, 4000, 4000);
-        if (map.getLives() == 0) {
-            System.out.println("GAME OVER!");
-        }
+        animator.scheduleAtFixedRate(anim, 1000, 25);
+        monsterSpawner.scheduleAtFixedRate(mons, 4000, 4000); 
+   
 
+     
     }
 
     private void createComponents(Container container) {
@@ -68,9 +67,8 @@ public class Interface extends JFrame implements Runnable {
         container.add(map);
         anim = new AnimationCycle(map);
         mons = new MonsterSpawn(map);
-        map.setLives(3);
         Bolt bolt = new Bolt(20, 440);
-        
+
         frame.addKeyListener(new KeyboardListener(player, map));
     }
 

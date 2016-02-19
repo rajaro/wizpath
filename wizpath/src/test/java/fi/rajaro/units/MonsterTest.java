@@ -39,5 +39,21 @@ public class MonsterTest {
         assertEquals(60, monster.getY());
     }
     
+    @Test
+    public void monsterActTest() {
+        monster.setDirection(2);
+        monster.act();
+        assertEquals(46, monster.getX());
+        assertEquals(47, monster.getY());
+    }
+    
+    @Test
+    public void monsterActTest2() {
+        monster.setDirection(1);
+        monster.act();
+        assertEquals(44, monster.getX());
+        assertEquals(47, monster.getY());
+    }
+    
     
 }

@@ -9,23 +9,12 @@ package fi.rajaro.units;
  *
  * @author jaro
  */
-import java.awt.*;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.Random;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
 /**
  * Monsterit määrittelevä luokka
  * @author jaro
  */
+
+import java.awt.Graphics;
 public class Monster extends Unit {
 
     private boolean dead;
@@ -47,8 +36,9 @@ public class Monster extends Unit {
         playerDead = false;
     }
 /**
- * Liikutetaan monsteria, jos se on elossa. Liikkumisen suunta lasketaan direction-muuttujan
- * perusteella
+ * Liikutetaan monsteria, jos se on elossa
+ * Liikkumisen suunta lasketaan direction-muuttujan
+ * perusteella.
  */
     public void act() {
         if (this.dead == false) {
@@ -64,7 +54,8 @@ public class Monster extends Unit {
         return this.direction;
     }
 /**
- * Asetetaan suuntamuuttuja monsterille. Suunta perustuu jakojäännökseen luvulla 2 jaettaessa
+ * Asetetaan suuntamuuttuja monsterille
+ * Suunta perustuu jakojäännökseen luvulla 2 jaettaessa.
  * @param direction monsterin suunta
  */
     public void setDirection(int direction) {
@@ -104,7 +95,7 @@ public class Monster extends Unit {
 /**
  * Tapetaan monsteri, jos sen koordinaattien erotus vertailtavan kanssa on -5 < x < 5
  * 
- * @param unit monsterin tappava toimija
+ * @param unit monsterin tappava pelaaja tai ammus
  * @return palautetaan true, jos tappaminen onnistui
  */
     public boolean kill(Unit unit) {

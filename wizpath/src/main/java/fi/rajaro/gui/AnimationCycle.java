@@ -3,27 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.rajaro.units;
+package fi.rajaro.gui;
 
 /**
  *
  * @author jaro
  */
-import java.util.Timer;
+
+import fi.rajaro.units.Map;
 import java.util.TimerTask;
 /**
-     * Monsterit luova TimerTask
-     * @see fi.rajaro.units.Map#spawnMonsters(int) 
+     * Animaatiosta huolehtiva TimerTask.
+     * @see fi.rajaro.units.Map#animationCycle() 
      */
-
-public class MonsterSpawn extends TimerTask {
-    
+public class AnimationCycle extends TimerTask {
     private Map map;
-     public MonsterSpawn(Map map) {
+    
+    public AnimationCycle(Map map) {
         this.map = map;
     }
-    
+    @Override
     public void run() {
-        map.spawnMonsters(30);
+        map.animationCycle();
     }
+    
 }

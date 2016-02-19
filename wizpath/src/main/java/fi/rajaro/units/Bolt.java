@@ -10,11 +10,12 @@ package fi.rajaro.units;
 
 import java.awt.Graphics;
 
-// Ammus, jonka pelaaja ampuu
+
 
 /**
- *
+ * 
  * @author jaro
+ * Ammus, jonka pelaaja ampuu.
  */
 public class Bolt extends Unit {
     private int x;
@@ -49,7 +50,7 @@ public class Bolt extends Unit {
     }
     
     /**
-    * Asettaa ammuksen koordinaatit parametrien mukaan
+    * Asettaa ammuksen koordinaatit parametrien mukaan.
     * @param x uudet koordinaatit
     * @param y uudet koordinaatit
     */
@@ -62,7 +63,10 @@ public class Bolt extends Unit {
     public void move(int xchange, int ychange) {
         this.y = y + ychange;
     }
-    
+    /**
+     * Ammuksen liikkumisen määrittävä metodi.
+     * 
+     */
     public void act() {
             move(0, -4);       
     }
