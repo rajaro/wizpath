@@ -11,20 +11,24 @@ package fi.rajaro.gui;
  */
 import fi.rajaro.units.Map;
 import java.util.TimerTask;
+
 /**
-     * Monsterit luova TimerTask.
-     * @see fi.rajaro.units.Map#spawnMonsters(int) 
-     */
+ * Monsterit luova TimerTask.
+ *
+ * @see fi.rajaro.units.Map#spawnMonsters(int)
+ */
 
 public class MonsterSpawn extends TimerTask {
-    
+
     private Map map;
-     public MonsterSpawn(Map map) {
+
+    public MonsterSpawn(Map map) {
         this.map = map;
     }
+
     @Override
     public void run() {
         map.spawnMonsters(30);
-        
+
     }
 }

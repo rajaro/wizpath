@@ -9,24 +9,13 @@ package fi.rajaro.units;
  *
  * @author jaro
  */
-import java.awt.*;
-import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.Random;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+
 /**
  * Pelaajan määrittelevä luokka.
+ *
  * @author jaro
  */
-
 public class Player extends Unit {
 
     private int x;
@@ -44,58 +33,69 @@ public class Player extends Unit {
         this.x = x;
         this.y = y;
     }
+
     @Override
     public void setX(int x) {
         this.x = x;
     }
+
     @Override
     public void setY(int y) {
         this.y = y;
     }
+
     @Override
     public int getX() {
         return this.x;
     }
+
     @Override
     public int getY() {
         return this.y;
     }
-    
+
     public void setBolt(Bolt bolt) {
         this.bolt = bolt;
     }
-    
+
     public Bolt getBolt() {
         return this.bolt;
     }
-    
+
     public boolean dead() {
         return this.dead;
     }
+
     /**
      * Asettaa pelaajan kuolleeksi.
      */
     public void kill() {
         this.dead = true;
     }
+
     /**
      * Asetetaan ammuksen koordinaateiksi pelaajan tämänhetkiset koordinaatit.
+     *
      * @param bolt pelaaja ammus
      */
     public void shoot(Bolt bolt) {
         bolt.shoot(getX(), getY());
-        
+
     }
-/**
- * Asetetaan muuttuja, joka kertoo liikkumisen suunnan. -2 = vasen, 2 = oikea, 0 = ei mihinkään.
- * @param act liikkumisen suunta
- */
+
+    /**
+     * Asetetaan muuttuja, joka kertoo liikkumisen suunnan. 1 = ylös, -1 = alas,
+     * -2 = vasen, 2 = oikea, 0 = ei mihinkään.
+     *
+     * @param act liikkumisen suunta
+     */
     public void setAct(int act) {
         this.act = act;
     }
-/**
- * Liikutetaan pelaajaa act -muuttujan arvon perusteella.
- */
+
+    /**
+     * Liikutetaan pelaajaa act -muuttujan arvon perusteella.
+     */
     public void act() {
         if (this.act == 2) {
             move(2, 0);
@@ -108,26 +108,28 @@ public class Player extends Unit {
         }
 
     }
+
     @Override
     public void move(int xchange, int ychange) {
         if (this.x + xchange <= 0) {
             this.x = 0;
         } else if (this.x + xchange >= 480) {
-            this.x = 480;  
+            this.x = 480;
         } else {
-        this.x += xchange;
+            this.x += xchange;
         }
         if (this.y + ychange <= 0) {
             this.y = 0;
         } else if (this.y + ychange >= 460) {
-            this.y = 460;  
+            this.y = 460;
         } else {
-        this.y += ychange;
+            this.y += ychange;
         }
     }
 
     public void draw(Graphics graphics) {
         graphics.fillOval(x, y, 20, 20);
+
     }
 
 }

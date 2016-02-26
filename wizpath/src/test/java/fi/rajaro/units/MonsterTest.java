@@ -19,7 +19,7 @@ public class MonsterTest {
     
     @Test
     public void killWhenNotInSamePlace() {
-        monster.kill(unit);
+        monster.killBolt(unit);
         assertTrue(!monster.isDead());
         
     }
@@ -28,7 +28,7 @@ public class MonsterTest {
     @Test
     public void moveAndKill() {
         unit.move(-15, -15);
-        monster.kill(unit);
+        monster.killBolt(unit);
         assertTrue(monster.isDead());
     }
      

@@ -54,10 +54,8 @@ public class Interface extends JFrame implements Runnable {
         Timer animator = new Timer();
         Timer monsterSpawner = new Timer();
         animator.scheduleAtFixedRate(anim, 1000, 25);
-        monsterSpawner.scheduleAtFixedRate(mons, 4000, 4000); 
-   
+        monsterSpawner.scheduleAtFixedRate(mons, 4000, 4000);
 
-     
     }
 
     private void createComponents(Container container) {

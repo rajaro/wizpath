@@ -9,22 +9,29 @@ package fi.rajaro.gui;
  *
  * @author jaro
  */
-
 import fi.rajaro.units.Map;
 import java.util.TimerTask;
+
 /**
-     * Animaatiosta huolehtiva TimerTask.
-     * @see fi.rajaro.units.Map#animationCycle() 
-     */
+ * Animaatiosta huolehtiva TimerTask.
+ *
+ * @see fi.rajaro.units.Map#animationCycle()
+ */
 public class AnimationCycle extends TimerTask {
+
     private Map map;
-    
+
     public AnimationCycle(Map map) {
         this.map = map;
     }
+
     @Override
     public void run() {
-        map.animationCycle();
+        try {
+            map.animationCycle();
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
     }
-    
+
 }

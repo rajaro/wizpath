@@ -12,38 +12,53 @@ package fi.rajaro.units;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
-import java.util.Timer;
-import java.util.TimerTask;
-import fi.rajaro.gui.*;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.JLabel;
+import fi.rajaro.gui.GameOverScreen;
 
 /**
  * Pelikentän määrittävä luokkka.
  *
  * @author jaro
  */
-public class Map extends JPanel {
+public final class Map extends JPanel {
 
+    /**
+     * Pelikenttä, joka sisältää pelaajan, mosnterit, ammuksen, pisteet sekä
+     * int-muodossa että JLabel varattu pisteille. Lisäksi kartalle annetaan
+     * gameOverScreen, jota kutsutaan pelin loppuessa. lastHit kertoo
+     * viimeisimmän osuman pelaajaan.
+     */
     private Player player;
     private ArrayList<Monster> monsters;
     private Bolt bolt;
-    private Timer timer;
     private int score;
     private int playerLives;
-/**
- * Luodaan kenttä, ja alustetaan sinne pelaaja, ammus, monsterit sekä pelaajan elämät.
- * @param player pelaaja
- * @param monsters monsterien lukumäärä
- */
+    private JLabel scoreLabel;
+    private GameOverScreen gameOver;
+    private double lastHit;
+
+    /**
+     * Luodaan kenttä, ja alustetaan sinne pelaaja, ammus, monsterit sekä
+     * pelaajan elämät ja pisteet.
+     *
+     * @param player pelaaja
+     * @param monsters monsterien lukumäärä
+     */
     public Map(Player player, int monsters) {
-        this.monsters = new ArrayList<Monster>();
+        this.monsters = new ArrayList<>();
         bolt = new Bolt(20, 440);
-        super.setBackground(Color.WHITE);
+        super.setBackground(Color.BLACK);
         this.player = player;
         player.setBolt(bolt);
         spawnMonsters(monsters);
-        playerLives = 5;
+        playerLives = 3;
+        scoreLabel = new JLabel();
+        scoreLabel.setBounds(180, 10, 300, 10);
+        scoreLabel.setText("Score: " + score + " - Lives: " + playerLives);
+        gameOver = new GameOverScreen();
+        lastHit = 0;
     }
 
     /**
@@ -55,46 +70,61 @@ public class Map extends JPanel {
      *
      */
     public void spawnMonsters(int monsters) {
-        for (int i = 0; i < monsters; i++) {
-            Random randomint = new Random();
-            int randomx = randomint.nextInt(500);
-            int randomy = randomint.nextInt(30);
-            Monster moso = new Monster(randomx, randomy);
-            moso.setDirection(i);
-            this.monsters.add(moso);
+        if (playerLives > 0) {
+            for (int i = 0; i < monsters; i++) {
+                Random randomint = new Random();
+                int randomx = randomint.nextInt(500);
+                int randomy = randomint.nextInt(30);
+                Monster moso = new Monster(randomx, randomy);
+                moso.setDirection(i);
+                this.monsters.add(moso);
+            }
 
         }
     }
 
     /**
-     * Liikuttaa kaikkia kartalla olevia, tarkastaa osuvatko jotkut toisiinsa ja
-     * kutsuu lopuksi repaint() metodia.
+     * Jos pelajaalla on elämiä jäljellä, liikuttaa kaikkia kartalla olevia,
+     * tarkastaa osuvatko jotkut toisiinsa ja kutsuu lopuksi repaint() metodia.
+     *
+     * @throws java.lang.Exception heittää exceptionin
      */
-    public void animationCycle() {
-        player.act();
-        for (int i = 0; i < this.monsters.size(); i++) {
-            this.monsters.get(i).act();
+    public void animationCycle() throws Exception {
+        if (playerLives > 0) {
+            player.act();
+            for (int i = 0; i < this.monsters.size(); i++) {
+                this.monsters.get(i).act();
+            }
+            bolt.act();
+            checkCollision();
+            repaint();
         }
-        bolt.act();
-        checkCollision();
-        repaint();
+
     }
 
     /**
-     * Tarkastaa, osuuko jokin monsteri joko pelaajaan tai ammukseen.
+     * Tarkastaa, osuuko jokin monsteri joko pelaajaan tai ammukseen ja
+     * päivitetään score sekä playerLives -muuttujat. Pelaaja ei voi menettää
+     * elämää useammin kuin kerran sekunnissa.
+     *
+     * @throws java.lang.Exception heittää exceptionin
      */
-    public void checkCollision() {
+    public void checkCollision() throws Exception {
+
         for (int i = 0; i < this.monsters.size(); i++) {
-            if (this.monsters.get(i).kill(player)) {
-                playerLives--;
-                if (playerLives == 0) {
-                    System.out.println("GAME OVER");
-                    System.out.println(getScore());
+
+            if (this.monsters.get(i).killPlayer(player)) {
+                if (System.currentTimeMillis() - lastHit > 1000) {
+                    playerLives--;
+                    scoreLabel.setText("Score: " + this.score + " - Lives: " + playerLives);
+                    lastHit = System.currentTimeMillis();
                 }
             }
             if (!this.monsters.get(i).isDead()) {
-                if (this.monsters.get(i).kill(bolt)) {
+                if (this.monsters.get(i).killBolt(bolt)) {
                     score++;
+                    scoreLabel.setText("Score: " + this.score + " - Lives: " + playerLives);
+
                 }
             }
         }
@@ -125,11 +155,21 @@ public class Map extends JPanel {
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
-        player.draw(graphics);
-        for (int i = 0; i < this.monsters.size(); i++) {
-            this.monsters.get(i).draw(graphics);
+        if (playerLives > 0) {
+            super.paintComponent(graphics);
+            graphics.setColor(Color.BLUE);
+            player.draw(graphics);
+            graphics.setColor(Color.RED);
+            for (int i = 0; i < this.monsters.size(); i++) {
+                this.monsters.get(i).draw(graphics);
+            }
+            graphics.setColor(Color.WHITE);
+            bolt.draw(graphics);
+            add(scoreLabel);
+        } else {
+            super.paintComponent(graphics);
+            this.add(gameOver.gameOver(score));
+
         }
-        bolt.draw(graphics);
     }
 }

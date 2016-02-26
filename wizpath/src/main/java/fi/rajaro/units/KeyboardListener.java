@@ -1,12 +1,7 @@
 package fi.rajaro.units;
 
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.Component;
-import javax.swing.JComponent;
-import java.awt.AWTKeyStroke;
 
 public class KeyboardListener implements KeyListener {
 
