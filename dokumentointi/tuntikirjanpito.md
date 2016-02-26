@@ -21,3 +21,7 @@
 
 11.2.2016 klo 16.00 - 20.00 Animaation tekemistä, testejä, JavaDoc
 
+##Deadline 6
+
+22.2.2016 klo 12.00 - 16.00 Käytettävyyden parantelua, osumisen tarkkuuden parantelua
+23.2.2016 klo 15.00 - 17.00 UIn värittelyä ja tekstikenttien lisäämistä. 
