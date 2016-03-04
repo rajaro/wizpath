@@ -24,8 +24,8 @@ public class GameOverScreen extends JPanel {
      */
     public JLabel gameOver(int score) {
         JLabel gameOverText = new JLabel();
-        gameOverText.setBounds(150, 150, 300, 300);
-        gameOverText.setText("GAME OVER! Score: " + score);
+        gameOverText.setBounds(50, 150, 400, 400);
+        gameOverText.setText("GAME OVER! Score: " + score + " -- Press enter to play again");
         return gameOverText;
     }
 }

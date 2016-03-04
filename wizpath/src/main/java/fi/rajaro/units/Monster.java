@@ -39,7 +39,7 @@ public class Monster extends Unit {
     }
 
     /**
-     * Liikutetaan monsteria, jos se on elossa Liikkumisen suunta lasketaan
+     * Liikutetaan monsteria, jos se on elossa. Liikkumisen suunta lasketaan
      * direction-muuttujan perusteella.
      */
     public void act() {

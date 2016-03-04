@@ -38,25 +38,32 @@ public final class Map extends JPanel {
     private JLabel scoreLabel;
     private GameOverScreen gameOver;
     private double lastHit;
+    private JLabel gameStart;
+    public int inGame;
+    private int monstersNum;
 
     /**
      * Luodaan kenttä, ja alustetaan sinne pelaaja, ammus, monsterit sekä
      * pelaajan elämät ja pisteet.
      *
      * @param player pelaaja
-     * @param monsters monsterien lukumäärä
+     * @param monstersNum monsterien lukumäärä
      */
-    public Map(Player player, int monsters) {
+    public Map(Player player, int monstersNum) {
+        gameStart = new JLabel("Press enter to start game");
+        gameStart.setBounds(150, 150, 200, 200);
+        inGame = 0;
         this.monsters = new ArrayList<>();
         bolt = new Bolt(20, 440);
         super.setBackground(Color.BLACK);
         this.player = player;
         player.setBolt(bolt);
-        spawnMonsters(monsters);
+        spawnMonsters(monstersNum);
+        this.monstersNum = monstersNum;
         playerLives = 3;
         scoreLabel = new JLabel();
-        scoreLabel.setBounds(180, 10, 300, 10);
-        scoreLabel.setText("Score: " + score + " - Lives: " + playerLives);
+        scoreLabel.setBounds(102, 7, 300, 10);
+        scoreLabel.setText(scoreUpdate());
         gameOver = new GameOverScreen();
         lastHit = 0;
     }
@@ -116,14 +123,14 @@ public final class Map extends JPanel {
             if (this.monsters.get(i).killPlayer(player)) {
                 if (System.currentTimeMillis() - lastHit > 1000) {
                     playerLives--;
-                    scoreLabel.setText("Score: " + this.score + " - Lives: " + playerLives);
+                    scoreLabel.setText(scoreUpdate());
                     lastHit = System.currentTimeMillis();
                 }
             }
             if (!this.monsters.get(i).isDead()) {
                 if (this.monsters.get(i).killBolt(bolt)) {
                     score++;
-                    scoreLabel.setText("Score: " + this.score + " - Lives: " + playerLives);
+                    scoreLabel.setText(scoreUpdate());
 
                 }
             }
@@ -144,6 +151,15 @@ public final class Map extends JPanel {
         return this.score;
     }
 
+    /**
+     * Päivitetään piste- ja elämätilanne
+     *
+     * @return palauttaa pisteet ja elämät
+     */
+    public String scoreUpdate() {
+        return "Score: " + this.score + " - Lives: " + playerLives + "  (Press enter to reset)";
+    }
+
     public ArrayList<Monster> getMonsters() {
         return this.monsters;
     }
@@ -153,23 +169,56 @@ public final class Map extends JPanel {
 
     }
 
+    /**
+     * Alustetaan Map uudestaan. Asetetaan samat arvot kuin konstruktorissa.
+     */
+    public void startGame() {
+        this.inGame = 1;
+        repaint();
+        this.removeAll();
+        this.monsters = new ArrayList<>();
+        player.setX(20);
+        player.setY(440);
+        score = 0;
+        bolt = new Bolt(20, 440);
+        player.setBolt(bolt);
+        playerLives = 3;
+        scoreLabel.setText(scoreUpdate());
+        gameOver = new GameOverScreen();
+        lastHit = 0;
+
+    }
+
+    /**
+     * Maalataan aloitusviesti, ja kun käyttäjä painaa Enteriä niin aloitetaan
+     * itse peli. Kun peli loppuu (eli pelaajan elämät loppuvat), maalataan
+     * näytölle lopetusviesti.
+     *
+     * @param graphics graphics
+     */
     @Override
     protected void paintComponent(Graphics graphics) {
-        if (playerLives > 0) {
+        if (this.inGame == 0) {
             super.paintComponent(graphics);
-            graphics.setColor(Color.BLUE);
-            player.draw(graphics);
-            graphics.setColor(Color.RED);
-            for (int i = 0; i < this.monsters.size(); i++) {
-                this.monsters.get(i).draw(graphics);
-            }
-            graphics.setColor(Color.WHITE);
-            bolt.draw(graphics);
-            add(scoreLabel);
+            this.add(gameStart);
         } else {
-            super.paintComponent(graphics);
-            this.add(gameOver.gameOver(score));
+            this.remove(gameStart);
+            if (playerLives > 0) {
+                super.paintComponent(graphics);
+                graphics.setColor(Color.BLUE);
+                player.draw(graphics);
+                graphics.setColor(Color.RED);
+                for (int i = 0; i < this.monsters.size(); i++) {
+                    this.monsters.get(i).draw(graphics);
+                }
+                graphics.setColor(Color.WHITE);
+                bolt.draw(graphics);
+                add(scoreLabel);
+            } else {
+                super.paintComponent(graphics);
+                this.add(gameOver.gameOver(score));
 
+            }
         }
     }
 }

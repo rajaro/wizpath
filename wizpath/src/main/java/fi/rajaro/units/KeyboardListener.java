@@ -32,6 +32,8 @@ public class KeyboardListener implements KeyListener {
             player.setAct(1);
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             player.shoot(player.getBolt());
+        } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            component.startGame();
         }
 
     }

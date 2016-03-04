@@ -46,5 +46,15 @@ public class MapTest {
         
     }
     
+    @Test
+    public void startGameTest() {
+        map.setLives(4);
+        map.startGame();
+        assertEquals(3, map.getLives());
+        assertEquals(0, map.getScore());
+        assertEquals(20, player.getX());
+        assertEquals(440, player.getY());
+    }
+    
 
 }

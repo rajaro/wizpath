@@ -120,8 +120,8 @@ public class Player extends Unit {
         }
         if (this.y + ychange <= 0) {
             this.y = 0;
-        } else if (this.y + ychange >= 460) {
-            this.y = 460;
+        } else if (this.y + ychange >= 450) {
+            this.y = 450;
         } else {
             this.y += ychange;
         }

@@ -66,6 +66,19 @@ public class PlayerTest {
         player.act();
         assertEquals(originalY + 2, player.getY());
     }
+    
+    @Test
+    public void playerMoveToTopTest() {
+        player.move(0, -501);
+        assertEquals(0, player.getY());
+    }
+    
+    @Test
+    public void playerMoveToBottomTest() {
+        player.move(0, 501);
+        assertEquals(450, player.getY());
+    }
+    
 
 }
 
