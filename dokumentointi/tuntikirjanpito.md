@@ -26,3 +26,9 @@
 22.2.2016 klo 12.00 - 16.00 Käytettävyyden parantelua, osumisen tarkkuuden parantelua
 23.2.2016 klo 15.00 - 17.00 UIn värittelyä ja tekstikenttien lisäämistä. 
 26.2.2016 klo 17.30 - 20.00 Koodin tyylittelyä, uudet CheckStyle/pit raportit, .jar:in tekeminen, Käyttöohjeet ja rakennekuvaus
+
+##Loppupalautus
+
+1.3.2016 klo 14.00 - 16.00 Uudelleenpelattavuuden tekeminen
+2.3.2016 klo 12.00 - 15.00 Dokumentaation päivittämistä, testien päivittämistä, grafiikkojen säätämistä.
+4.3.2016 klo 17.00 - 18.00 Viimeistelyä, raporttien generoimista
